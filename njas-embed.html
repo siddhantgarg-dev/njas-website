@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Not Just Another Screwdriver</title>
+<style>
+/* NJAS — isolated embed. No external libraries, no generated product artwork. */
+#njas{--ink:#111;--glass:rgba(255,255,255,.34);--glass-strong:rgba(255,255,255,.55);--edge:rgba(255,255,255,.76);--muted:rgba(17,17,17,.43);position:relative;width:100%;min-height:820px;overflow:hidden;isolation:isolate;color:var(--ink);background:radial-gradient(circle at 52% 45%,#fff 0%,#f5f5f3 42%,#dddeda 100%);font-family:Arial,Helvetica,sans-serif}
+#njas *{box-sizing:border-box}
+#njas button{font:inherit}
+#njas .grain{position:absolute;inset:-20%;opacity:.045;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='x'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23x)'/%3E%3C/svg%3E");z-index:100}
+#njas .nav{position:absolute;z-index:50;top:18px;left:28px;right:28px;height:54px;display:flex;align-items:center;justify-content:space-between}
+#njas .logo{font-family:"Comic Sans MS","Bradley Hand",cursive;font-size:20px;letter-spacing:-.7px}
+#njas .navcenter{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:20px}
+#njas .navcenter button,#njas .round{border:0;cursor:pointer;background:transparent}
+#njas .navcenter button{font-size:12px;padding:10px 17px;border-radius:30px;opacity:.52}
+#njas .navcenter .on{opacity:1;background:rgba(255,255,255,.43);border:1px solid rgba(255,255,255,.55);box-shadow:0 7px 24px rgba(0,0,0,.04),inset 0 1px rgba(255,255,255,.8)}
+#njas .navright{display:flex;align-items:center;gap:18px}
+#njas .cart{font-size:12px;opacity:.6}
+#njas .round{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.38);border:1px solid var(--edge);backdrop-filter:blur(20px);box-shadow:0 12px 35px rgba(0,0,0,.08)}
+#njas .intro{position:absolute;z-index:35;left:4.5%;top:25%;width:290px}
+#njas h1{font-weight:400;font-size:41px;line-height:1.04;letter-spacing:-2.5px;margin:0 0 13px}
+#njas .intro p{font-size:14px;line-height:1.35;color:rgba(17,17,17,.31);margin:0 0 26px}
+#njas .actions{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+#njas .action{width:177px;height:39px;padding:0 14px;border-radius:22px;border:1px solid var(--edge);background:rgba(255,255,255,.28);backdrop-filter:blur(17px);box-shadow:inset 0 1px rgba(255,255,255,.85),0 9px 25px rgba(0,0,0,.04);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:13px;transition:transform .4s,background .4s}
+#njas .action:hover{transform:translateX(6px);background:rgba(255,255,255,.55)}
+#njas .stage{position:absolute;inset:0;z-index:10;perspective:1200px}
+#njas .hero-product{position:absolute;z-index:25;left:50%;top:50%;width:430px;height:430px;object-fit:contain;transform:translate(-50%,-50%) rotate(-7deg);filter:drop-shadow(0 28px 24px rgba(0,0,0,.18));transition:transform .8s cubic-bezier(.16,.8,.22,1),opacity .5s}
+#njas .hero-product.change{opacity:0;transform:translate(-50%,-50%) rotate(-7deg) scale(.94);transition:.18s}
+#njas .float{position:absolute;object-fit:contain;filter:drop-shadow(0 19px 15px rgba(0,0,0,.12));transition:transform .9s cubic-bezier(.16,.8,.22,1);user-select:none}
+#njas .a{left:29%;top:8%;width:115px}.b{left:39%;top:14%;width:135px}.c{left:51%;top:8%;width:63px}.d{left:63%;top:14%;width:150px}.e{left:66%;top:35%;width:120px}.f{left:16%;top:64%;width:135px}.g{left:28%;top:72%;width:75px}.h{left:45%;top:72%;width:115px}.i{left:59%;top:68%;width:90px}.j{left:68%;top:77%;width:115px}
+#njas .build{position:absolute;z-index:45;right:4%;top:22%;width:300px;padding:27px;border-radius:25px;background:rgba(255,255,255,.31);border:1px solid var(--edge);backdrop-filter:blur(25px) saturate(120%);box-shadow:0 28px 85px rgba(0,0,0,.10),inset 0 1px rgba(255,255,255,.9)}
+#njas .build h2{font-size:18px;font-weight:400;margin:0 0 16px}
+#njas .item{height:45px;display:flex;align-items:center;gap:10px;font-size:12px}
+#njas .thumb{width:46px;height:36px;display:grid;place-items:center}
+#njas .thumb img{max-width:42px;max-height:34px;object-fit:contain}
+#njas .item .name{flex:1;opacity:.72}.item .qty{opacity:.52}
+#njas .line{height:1px;background:rgba(17,17,17,.13);margin-top:10px}
+#njas .total{display:flex;justify-content:space-between;font-size:13px;margin-top:16px}
+#njas .buy,#njas .download{width:100%;height:45px;border-radius:25px;margin-top:14px;cursor:pointer}
+#njas .buy{background:#292929;color:#fff;border:1px solid #444;box-shadow:0 12px 28px rgba(0,0,0,.16)}
+#njas .download{background:rgba(255,255,255,.3);border:1px solid var(--edge)}
+#njas .copy{position:absolute;z-index:35;right:19%;bottom:8%;width:245px;color:rgba(17,17,17,.26);font-size:10px;line-height:1.4}
+#njas .scroll{position:absolute;right:4%;bottom:4%;z-index:45}
+#njas .modal{position:absolute;inset:0;z-index:90;display:grid;place-items:center;background:rgba(225,225,222,.25);backdrop-filter:blur(25px);opacity:0;pointer-events:none;transition:.45s}
+#njas .modal.open{opacity:1;pointer-events:auto}
+#njas .sheet{width:min(780px,90%);max-height:88%;overflow:auto;padding:30px;border-radius:30px;background:rgba(255,255,255,.56);border:1px solid rgba(255,255,255,.85);box-shadow:0 35px 100px rgba(0,0,0,.15);transform:translateY(22px) scale(.97);transition:.45s}
+#njas .open .sheet{transform:none}
+#njas .sheethead{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+#njas .sheet h3{font-size:25px;font-weight:400;margin:0}
+#njas .close{border:0;border-radius:50%;width:38px;height:38px;background:rgba(255,255,255,.55);cursor:pointer}
+#njas .config{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#njas .box{padding:18px;border-radius:21px;background:rgba(255,255,255,.31);border:1px solid rgba(255,255,255,.7)}
+#njas .label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;opacity:.45;margin-bottom:10px}
+#njas .counter{display:flex;align-items:center;gap:13px}.counter button{width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.7);cursor:pointer}
+#njas .choices{display:flex;flex-wrap:wrap;gap:8px}.choice{border:1px solid rgba(0,0,0,.1);background:rgba(255,255,255,.35);border-radius:16px;padding:10px 13px;cursor:pointer;font-size:12px}.choice.selected{background:#202020;color:white}
+#njas .assetgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.assetcard{min-height:160px;border:1px solid rgba(255,255,255,.72);border-radius:20px;background:rgba(255,255,255,.32);padding:13px;cursor:pointer}.assetcard img{width:100%;height:115px;object-fit:contain}.assetcard span{font-size:11px;opacity:.65}
+#njas .sheettext{font-size:14px;line-height:1.55;color:rgba(17,17,17,.65)}
+
+#njas .float{cursor:grab;touch-action:none}
+#njas .float.dragging{cursor:grabbing;transition:none;z-index:70}
+#njas .float.recolor-mint{filter:drop-shadow(0 19px 15px rgba(0,0,0,.12)) sepia(.18) saturate(.8) hue-rotate(55deg)}
+#njas .float.recolor-pink{filter:drop-shadow(0 19px 15px rgba(0,0,0,.12)) sepia(.25) saturate(1.15) hue-rotate(305deg)}
+#njas .float.recolor-grey{filter:drop-shadow(0 19px 15px rgba(0,0,0,.12)) grayscale(.25)}
+#njas .float.floating{animation:njas-bob var(--dur,8s) ease-in-out infinite alternate}
+@keyframes njas-bob{from{transform:translate3d(0,0,0) rotate(var(--rot,0deg))}to{transform:translate3d(var(--dx,8px),var(--dy,-10px),0) rotate(calc(var(--rot,0deg) + var(--spin,4deg)))}}
+#njas .hero-product{cursor:grab;touch-action:none}
+#njas .hero-product.dragging{cursor:grabbing;transition:none}
+#njas .rotatehint{position:absolute;z-index:30;left:50%;top:64%;transform:translateX(-50%);font-size:11px;color:rgba(17,17,17,.35);padding:8px 13px;border-radius:20px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.52);backdrop-filter:blur(14px);opacity:.8;transition:.4s}
+#njas .rotatehint.hide{opacity:0;pointer-events:none}
+#njas .quicktabs{position:absolute;z-index:42;left:50%;bottom:4.5%;transform:translateX(-50%);display:flex;gap:5px;padding:5px;border:1px solid rgba(255,255,255,.72);border-radius:30px;background:rgba(255,255,255,.28);backdrop-filter:blur(20px);box-shadow:0 15px 45px rgba(0,0,0,.07)}
+#njas .quicktabs button{border:0;background:transparent;border-radius:24px;padding:9px 17px;font-size:11px;cursor:pointer;opacity:.55;transition:.3s}
+#njas .quicktabs button.active,#njas .quicktabs button:hover{background:rgba(255,255,255,.65);opacity:1}
+#njas .assetcard img{transition:transform .45s}
+#njas .assetcard:hover img{transform:scale(1.04) rotate(-2deg)}
+#njas .config-preview{height:280px;position:relative;display:grid;place-items:center;margin-bottom:12px;border-radius:24px;background:rgba(255,255,255,.22);overflow:hidden}
+#njas .config-preview img{height:250px;max-width:80%;object-fit:contain;transition:opacity .18s,transform .55s cubic-bezier(.2,.8,.2,1)}
+#njas .swatches{display:flex;gap:7px;margin-top:12px}
+#njas .swatch{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.12);cursor:pointer}
+#njas .swatch[data-colour="original"]{background:linear-gradient(135deg,#eee,#222)}
+#njas .swatch[data-colour="mint"]{background:#cbded2}
+#njas .swatch[data-colour="pink"]{background:#dfc2c0}
+#njas .swatch[data-colour="black"]{background:#222}
+#njas .status{font-size:10px;color:rgba(17,17,17,.38);margin-top:10px}
+
+@media(max-width:900px){#njas{min-height:900px}.intro{left:5%;top:13%;}.hero-product{left:50%;top:43%;width:330px;height:430px}.build{right:5%;bottom:4%;top:auto;width:280px}.copy{display:none}.float{transform:scale(.75)}}
+@media(max-width:620px){#njas{min-height:920px}.nav{left:15px!important;right:15px!important}.navcenter{display:none}.logo{font-size:17px}.intro{left:20px;top:85px}.intro h1{font-size:32px}.intro p{display:none}.action{height:34px;width:155px}.hero-product{left:50%;top:39%;height:350px;width:300px}.build{left:20px;right:20px;bottom:20px;width:auto;padding:20px}.assetgrid,.config{grid-template-columns:1fr 1fr}}
+</style>
+
+<style>
+#njas .assetcard { overflow:hidden; }
+#njas .assetcard img { object-fit:contain; width:100%; height:100%; display:block; }
+#njas .thumb img { object-fit:contain; width:100%; height:100%; display:block; }
+#njas .name { display:none !important; }
+#njas .choice { width:64px; height:64px; padding:4px; overflow:hidden; }
+#njas .choice img { width:100%; height:100%; object-fit:contain; display:block; }
+#njas .assetgrid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+@media(max-width:800px){#njas .assetgrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+</style>
+</head>
+<body>
+<div id="njas">
+<div class="grain"></div>
+<nav class="nav">
+  <div class="logo">Not Just another screwdriver</div>
+  <div class="navcenter">
+    <button class="on" data-open="home">Home</button><button data-open="index">Index</button><button data-open="repart">Repart</button>
+  </div>
+  <div class="navright"><span class="cart">♧ 0</span><button class="round" data-open="index">☰</button></div>
+</nav>
+
+<section class="intro">
+  <h1>Ready for a<br>less boring future.</h1>
+  <p>A modular screwdriver system for everyone.<br>Build, repair, and make it yours.</p>
+  <div class="actions">
+    <button class="action" data-open="build">Build your own <span>→</span></button>
+    <button class="action" data-open="parts">Pick your parts <span>→</span></button>
+    <button class="action" data-open="repart">Repart <span>→</span></button>
+    <button class="action" data-open="mission">Mission <span>→</span></button>
+    <button class="action" data-open="instructions">Instructions <span>→</span></button>
+  </div>
+</section>
+
+<section class="stage" id="stage">
+  <img class="float a" data-depth="1" src="assets/grip-01.png">
+  <img class="float b" data-depth="2" src="assets/grip-02.png">
+  <img class="float c" data-depth="1" src="assets/bit-01.png">
+  <img class="float d" data-depth="2" src="assets/grip-03.png">
+  <img class="float e" data-depth="1" src="assets/grip-04.png">
+  <img class="float f" data-depth="2" src="assets/spine.png">
+  <img class="float g" data-depth="1" src="assets/endcap-01.png">
+  <img class="float h" data-depth="2" src="assets/grip-05.png">
+  <img class="float i" data-depth="1" src="assets/config-03.png">
+  <img class="float j" data-depth="2" src="assets/grip-06.png">
+  <img id="heroProduct" class="hero-product" src="assets/prebuilt-01.png" alt="Not Just Another Screwdriver configuration">
+</section>
+
+<aside class="build">
+  <h2>Your build</h2>
+  <div class="item"><div class="thumb"><img src="assets/spine.png"></div><span class="name"></span><span class="qty" id="spineQty">x6</span></div>
+  <div class="item"><div class="thumb"><img src="assets/grip-01.png"></div><span class="name" id="gripName"></span><span class="qty" id="gripQty">x6</span></div>
+  <div class="item"><div class="thumb"><img src="assets/bit-01.png"></div><span class="name"></span><span class="qty">x1</span></div>
+  <div class="item"><div class="thumb"><img src="assets/endcap-01.png"></div><span class="name"></span><span class="qty">x1</span></div>
+  <div class="line"></div>
+  <div class="total"><span>Total</span><span id="total">£60</span></div>
+  <button class="buy" data-open="buy">Buy</button>
+  <button class="download" data-open="download">Download</button>
+</aside>
+
+<div class="copy">Every screwdriver claims to fit everyone, so this one does something else. It is part of an open system built around how tools actually get used, adapted, broken, and repaired over time.</div>
+<div class="rotatehint" id="rotateHint">Drag a part to move it · drag the screwdriver to rotate</div>
+<div class="quicktabs" id="quickTabs">
+  <button class="active" data-tab="grips">Grips</button>
+  <button data-tab="heads">Heads</button>
+  <button data-tab="spines">Spines</button>
+  <button data-tab="endcaps">Endcaps</button>
+  <button data-tab="prebuilt">Prebuilt</button>
+</div>
+<button class="round scroll" data-open="mission">↕</button>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+<script>
+(()=>{
+const root=document.getElementById('njas'),modal=root.querySelector('#modal'),sheet=root.querySelector('#sheet'),hero=root.querySelector('#heroProduct');
+const builds=['assets/config-01.png','assets/config-02.png','assets/config-03.png','assets/config-04.png','assets/config-05.png','assets/config-06.png'];
+const tabs={
+  grips:['grip-01.png','grip-02.png','grip-03.png','grip-04.png','grip-05.png','grip-06.png','grip-07.png','grip-08.png'],
+  heads:['config-01.png','config-02.png','head-connector.png','bit-01.png','bit-02.png','bit-03.png','bit-04.png'],
+  spines:['spine-silver','spine-black','spine-bronze'],
+  endcaps:['endcap-01.png','endcap-02.png','endcap-03.png','endcap-04.png'],
+  prebuilt:['prebuilt-01.png','prebuilt-02.png','prebuilt-03.png','prebuilt-04.png','prebuilt-05.png','prebuilt-06.png','prebuilt-07.png','prebuilt-08.png','prebuilt-09.png']
+};
+let state={spine:6,grip:6,style:'',build:0,colour:'original',rotation:-7};
+let dragged=null,dragStart=null,heroDrag=null;
+
+function open(title,html){
+  sheet.innerHTML='<div class="sheethead"><h3>'+title+'</h3><button class="close">×</button></div>'+html;
+  modal.classList.add('open');
+  sheet.querySelector('.close').onclick=()=>modal.classList.remove('open');
+}
+function update(){
+  root.querySelector('#spineQty').textContent='x'+state.spine;
+  root.querySelector('#gripQty').textContent='x'+state.grip;
+  root.querySelector('#gripName').textContent=''; root.querySelector('#total').textContent='£60';
+  hero.classList.add('change');
+  setTimeout(()=>{
+    hero.src=builds[state.build%builds.length];
+    hero.style.transform='translate(-50%,-50%) rotate('+state.rotation+'deg)';
+    hero.classList.remove('change');
+  },180);
+}
+function build(){
+open('Build your own',`
+  <div class="config-preview"><img id="preview" src="${builds[state.build%builds.length]}"></div>
+  <div class="config">
+    <div class="box"><div class="label">Length modules</div><div class="counter"><button data-k="spine" data-d="-1">−</button><strong>${state.spine}</strong><button data-k="spine" data-d="1">+</button></div></div>
+    <div class="box"><div class="label">Grip modules</div><div class="counter"><button data-k="grip" data-d="-1">−</button><strong>${state.grip}</strong><button data-k="grip" data-d="1">+</button></div></div>
+  </div>  <div class="box" style="margin-top:14px"><div class="label">Grip</div><div class="choices">
+    ${['grip-01.png','grip-02.png','grip-03.png','grip-04.png','grip-05.png','grip-06.png','grip-07.png','grip-08.png'].map((x,i)=>`<button class="choice ${i===0?'selected':''}" data-gripasset="${x}"><img src="assets/${x}" alt=""></button>`).join('')}
+  </div>
+  <div class="label" style="margin-top:16px">Colour treatment</div>
+  <div class="swatches">
+    <button class="swatch" title="Original" data-colour="original"></button>
+    <button class="swatch" title="Mint" data-colour="mint"></button>
+    <button class="swatch" title="Pink" data-colour="pink"></button>
+    <button class="swatch" title="Black" data-colour="black"></button>
+  </div></div>
+  <p class="status">Colour changes are surface treatments only. The supplied geometry is never altered.</p>
+  <p class="sheettext">The system assists, it does not decide. Length changes through adding and removing physical modules, keeping each choice reversible.</p>
+`);
+sheet.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{
+  state[b.dataset.k]=Math.max(1,Math.min(12,state[b.dataset.k]+Number(b.dataset.d)));
+  state.build=(state.build+1)%builds.length; update(); build();
+});
+sheet.querySelectorAll('[data-gripasset]').forEach(b=>b.onclick=()=>{
+  state.style='';
+  state.build=(state.build+1)%builds.length;
+  const chosen=b.dataset.gripasset;
+  root.querySelector('#heroProduct').dataset.grip=chosen;
+  update(); build();
+});
+sheet.querySelectorAll('[data-colour]').forEach(b=>b.onclick=()=>{
+  state.colour=b.dataset.colour;
+  const p=sheet.querySelector('#preview');
+  p.style.filter=state.colour==='mint'?'sepia(.18) saturate(.8) hue-rotate(55deg)':state.colour==='pink'?'sepia(.25) saturate(1.15) hue-rotate(305deg)':state.colour==='black'?'brightness(.42)':'none';
+  root.querySelector('#heroProduct').style.filter=state.colour==='mint'?'sepia(.18) saturate(.8) hue-rotate(55deg)':state.colour==='pink'?'sepia(.25) saturate(1.15) hue-rotate(305deg)':state.colour==='black'?'brightness(.42)':'drop-shadow(0 28px 24px rgba(0,0,0,.18))';
+});
+}
+function parts(tab='grips'){
+  const list=tabs[tab]||tabs.grips;
+  if(tab==='prebuilt'){
+    const prebuilt=tabs.prebuilt;
+    const grid=`<div class="assetgrid">
+      ${prebuilt.map((im,i)=>`<div class="assetcard" data-prebuilt="${im}" aria-label="Prebuilt configuration ${i+1}" title="Select"><img src="assets/${im}"></div>`).join('')}
+    </div>`;
+    open('Prebuilt configurations',grid+`<p class="sheettext">Choose from the supplied project configurations.</p>`);
+    sheet.querySelectorAll('[data-prebuilt]').forEach(c=>c.onclick=()=>{
+      const im=c.dataset.prebuilt;
+      const bi=builds.findIndex(x=>x.endsWith(im));
+      if(bi>=0){state.build=bi;update();modal.classList.remove('open')}
+    });
+    return;
+  }
+  const spineCards = tab==='spines' ? `
+    <div class="assetgrid">
+      <div class="assetcard" data-spinecolour="silver"><img src="assets/spine.png" style="filter:none"></div>
+      <div class="assetcard" data-spinecolour="black"><img src="assets/spine.png" style="filter:brightness(.42)"></div>
+      <div class="assetcard" data-spinecolour="bronze"><img src="assets/spine.png" style="filter:sepia(.55) saturate(.75) hue-rotate(350deg)"></div>
+    </div>` : '';
+  const grid = tab==='spines' ? spineCards : `
+    <div class="assetgrid">
+      ${list.map((im,i)=>`<div class="assetcard" data-asset="${im}" aria-label="Select component ${i+1}" title="Select"><img src="assets/${im}"></div>`).join('')}
+    </div>`;
+  open('Pick your parts',grid+`<p class="sheettext">These are the supplied project assets. Pick a component and it will become part of the working build.</p>`);
+  sheet.querySelectorAll('[data-asset]').forEach(c=>c.onclick=()=>{
+    const im=c.dataset.asset;
+    const bi=builds.findIndex(x=>x.endsWith(im));
+    if(bi>=0){state.build=bi;update();modal.classList.remove('open')}
+    else {
+      const preview = sheet.querySelector('.assetcard img');
+      root.querySelector('#heroProduct').src='assets/'+im;
+      root.querySelector('#heroProduct').style.filter='drop-shadow(0 28px 24px rgba(0,0,0,.18))';
+      modal.classList.remove('open');
+    }
+  });
+  sheet.querySelectorAll('[data-spinecolour]').forEach(c=>c.onclick=()=>{
+    const colour=c.dataset.spinecolour;
+    const f=colour==='black'?'brightness(.42)':colour==='bronze'?'sepia(.55) saturate(.75) hue-rotate(350deg)':'none';
+    root.querySelector('#heroProduct').src='assets/spine.png';
+    root.querySelector('#heroProduct').style.filter=f;
+    modal.classList.remove('open');
+  });
+}
+function index(){
+  open('Index',`<div class="assetgrid">
+    <div class="assetcard" data-open2="build"><span>Build</span><p class="status">Configure your own</p></div>
+    <div class="assetcard" data-open2="parts"><span>Select</span><p class="status">Pick your parts</p></div>
+    <div class="assetcard" data-open2="repart"><span>Repair</span><p class="status">Return and replace</p></div>
+    <div class="assetcard" data-open2="instructions"><span>Instructions</span><p class="status">How the system works</p></div>
+  </div>`);
+  sheet.querySelectorAll('[data-open2]').forEach(x=>x.onclick=()=>action(x.dataset.open2));
+}
+function action(a){
+  if(a==='build')build();
+  else if(a==='parts')parts();
+  else if(a==='index')index();
+  else if(a==='mission')open('Mission',`<p class="sheettext" style="font-size:17px;color:rgba(17,17,17,.72)">Every screwdriver claims to fit everyone. This system starts from the opposite idea: there is no universal hand, no correct grip, and no finished configuration.</p>`);
+  else if(a==='repart')open('Repart',`<p class="sheettext" style="font-size:17px;color:rgba(17,17,17,.72)">Parts are designed to be changed, returned, repaired and made again rather than treated as a fixed finished object.</p>`);
+  else if(a==='instructions')open('Instructions',`<p class="sheettext" style="font-size:17px;color:rgba(17,17,17,.72)">Add or remove the modules, choose a grip, and swap the bit interface. The spine carries the structural load so the replaceable grips can remain modular.</p>`);
+  else if(a==='buy')open('Your build',`<p class="sheettext">This is the selected build at £60.</p><button class="buy" id="selectBuild">Select this build</button>`);
+  else if(a==='download')open('Download',`<p class="sheettext">Connect this button to your OpenSCAD or fabrication-file location. Buying and downloading remain equal routes.</p><button class="download" id="downloadFiles">Open fabrication files</button>`);
+}
+root.querySelectorAll('[data-open]').forEach(x=>x.addEventListener('click',()=>action(x.dataset.open)));
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+
+function setRandomFloatMotion(){
+  root.querySelectorAll('.float').forEach((el,i)=>{
+    const rot=Math.round(Math.random()*70-35);
+    el.style.setProperty('--rot',rot+'deg');
+    el.style.setProperty('--dx',Math.round(Math.random()*22-11)+'px');
+    el.style.setProperty('--dy',Math.round(Math.random()*22-11)+'px');
+    el.style.setProperty('--spin',Math.round(Math.random()*10-5)+'deg');
+    el.style.setProperty('--dur',(6+Math.random()*6).toFixed(2)+'s');
+    el.style.transform='rotate('+rot+'deg)';
+    el.classList.add('floating');
+    el.addEventListener('pointerdown',startPartDrag);
+  });
+}
+function startPartDrag(e){
+  if(e.button!==0)return;
+  dragged=e.currentTarget;
+  dragged.classList.add('dragging');
+  dragged.setPointerCapture(e.pointerId);
+  const cs=getComputedStyle(dragged);
+  dragStart={x:e.clientX,y:e.clientY,ml:parseFloat(cs.marginLeft)||0,mt:parseFloat(cs.marginTop)||0};
+  dragged.addEventListener('pointermove',movePart);
+  dragged.addEventListener('pointerup',endPart,{once:true});
+}
+function movePart(e){
+  if(!dragged||!dragStart)return;
+  dragged.style.marginLeft=(dragStart.ml+e.clientX-dragStart.x)+'px';
+  dragged.style.marginTop=(dragStart.mt+e.clientY-dragStart.y)+'px';
+}
+function endPart(){
+  if(!dragged)return;
+  dragged.classList.remove('dragging');
+  dragged.removeEventListener('pointermove',movePart);
+  dragged=null;dragStart=null;
+  document.getElementById('rotateHint').classList.add('hide');
+}
+
+hero.addEventListener('pointerdown',e=>{
+  if(e.button!==0)return;
+  heroDrag={x:e.clientX,start:state.rotation};
+  hero.classList.add('dragging');hero.setPointerCapture(e.pointerId);
+});
+hero.addEventListener('pointermove',e=>{
+  if(!heroDrag)return;
+  state.rotation=heroDrag.start+(e.clientX-heroDrag.x)*.45;
+  hero.style.transform='translate(-50%,-50%) rotate('+state.rotation+'deg)';
+});
+hero.addEventListener('pointerup',()=>{heroDrag=null;hero.classList.remove('dragging');document.getElementById('rotateHint').classList.add('hide')});
+
+root.querySelectorAll('#quickTabs button').forEach(b=>b.addEventListener('click',()=>{
+  root.querySelectorAll('#quickTabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');parts(b.dataset.tab);
+}));
+
+let tx=0,ty=0,cx=0,cy=0;
+root.addEventListener('pointermove',e=>{
+  if(dragged||heroDrag)return;
+  const r=root.getBoundingClientRect();tx=(e.clientX-r.left-r.width/2)/r.width;ty=(e.clientY-r.top-r.height/2)/r.height
+});
+function loop(){
+  cx+=(tx-cx)*.055;cy+=(ty-cy)*.055;
+  if(!heroDrag) hero.style.transform='translate(calc(-50% + '+cx*22+'px),calc(-50% + '+cy*16+'px)) rotate('+state.rotation+'deg)';
+  root.querySelectorAll('.float:not(.dragging)').forEach(el=>{
+    const d=+el.dataset.depth||1;
+    el.style.marginLeft=(cx*d*20)+'px';el.style.marginTop=(cy*d*14)+'px'
+  });
+  requestAnimationFrame(loop)
+}
+setRandomFloatMotion();loop();update();
+})();
+</script>
+</div>
+</body>
+</html>
